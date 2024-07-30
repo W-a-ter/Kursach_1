@@ -12,7 +12,7 @@ API_KEY_CURRENCY = os.getenv("API_KEY_CURRENCY")
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s = - %(name)s - %(levelname)s - %(message)s",
-    filename="log/external_api.txt",
+    filename="../log/external_api.txt",
     filemode="w",
 )
 
@@ -28,7 +28,6 @@ try:
         open_logger.info("Файл открыт для чтения")
 except FileNotFoundError:
     open_logger.error("Путь/файл некорректный")
-
 
 
 def get_currency_rates(currencies: list) -> list[dict]:
@@ -87,6 +86,6 @@ def get_stock_prices(stocks: list) -> list[dict]:
         get_stock_logger.warning("ошибка в запросе")
 
 
-#print(get_currency_rates(load_json_info['user_currencies']))
+print(get_currency_rates(load_json_info['user_currencies']))
 #print(get_stock_prices(load_json_info['user_stocks']))
 #print(load_json_info)
