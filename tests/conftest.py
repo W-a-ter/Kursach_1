@@ -43,8 +43,8 @@ def get_requests_aapl():
 
 
 @pytest.fixture
-def spending_result_fix():
-    return {'Yes': [50, 21], 'No': [131, 2]}
+def test_test():
+    return []
 
 
 @pytest.fixture
