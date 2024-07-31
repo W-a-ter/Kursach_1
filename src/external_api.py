@@ -33,23 +33,30 @@ except FileNotFoundError:
 def get_currency_rates(currencies: list) -> list[dict]:
     """
     Функция принимает список валют из пользовательских настроек
-    делает запрос и возвращает список со стоимостью каждой валюты по курсу на сегодня
+    делает запрос и возвращает список
+    со стоимостью каждой валюты по курсу на сегодня
     """
     rates = []
     try:
         for currency in currencies:
-            response = requests.get(f"https://v6.exchangerate-api.com/v6/{API_KEY_CURRENCY}/latest/{currency}")
+            response = (requests.get
+                        (f"https://v6.exchangerate-api.com/v6/"
+                         f"{API_KEY_CURRENCY}/latest/{currency}"))
 
             status_code = response.status_code
             get_currency_logger.info(f"Статус код запроса {status_code}")
 
             try:
                 data = response.json()
-                rates.append({"currency": currency, "rate": data["conversion_rates"]["RUB"]})
+                (rates.append
+                 ({"currency": currency,
+                   "rate": data["conversion_rates"]["RUB"]}))
             except KeyError:
-                get_currency_logger.error("не найден ключ. keyerror")
+                (get_currency_logger.error
+                 ("не найден ключ. keyerror"))
 
-        get_currency_logger.info("Сделали запрос, получили стоимость валют из польз. настроек")
+        get_currency_logger.info("Сделали запрос, "
+                                 "получили стоимость валют из польз. настроек")
 
         return rates
     except ExceptionGroup:
@@ -59,7 +66,8 @@ def get_currency_rates(currencies: list) -> list[dict]:
 
 def get_stock_prices(stocks: list) -> list[dict]:
     """
-    Принимает пользовательские настройки (выбор акций) и возвращает стоимость акций
+    Принимает пользовательские настройки (выбор акций)
+     и возвращает стоимость акций
     в $ на начало текущего дня
     """
     prices = []
@@ -75,7 +83,8 @@ def get_stock_prices(stocks: list) -> list[dict]:
                 "timezone": "Europe/Moscow",
             }
 
-            response = requests.get("https://api.twelvedata.com/time_series", params=params)
+            response = requests.get("https://api.twelvedata.com/time_series",
+                                    params=params)
             get_stock_logger.info("запрос статус = 200, отработал")
 
             data = response.json()

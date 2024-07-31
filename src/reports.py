@@ -28,18 +28,11 @@ def spending_by_weekday(transactions: pd.DataFrame,
     today_3_months_ago = date_obj.replace(month=month).strftime("%d-%m-%Y")
     date_str = date_obj.strftime("%d-%m-%Y")
 
-    filtred_trans = transactions.loc[(transactions["Дата платежа"] >= today_3_months_ago) |
-                                     (transactions["Дата платежа"] <= date_str)]
+    filtred_trans = (
+        transactions.loc)[(transactions["Дата платежа"] >= today_3_months_ago) | (transactions["Дата платежа"] <=
+                                                                                  date_str)]
 
-    result = filtred_trans.groupby("Дата платежа").agg({"Сумма операции": ["mean"]})
+    result = (filtred_trans.groupby("Дата платежа")
+              .agg({"Сумма операции": ["mean"]}))
 
     return result
-
-
-#if __name__ == "__main__":
-   #print(spending_by_weekday(trans, "15.12.2021").to_dict())
-    # print(type(datetime.datetime.now()))
-
-
-
-

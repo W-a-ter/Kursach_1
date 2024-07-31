@@ -21,14 +21,20 @@ def greeting():
 
 def transactions(operations: pd.DataFrame) -> list[dict]:
     result = operations.groupby("Номер карты", as_index=False)
-    total_sum_cashback = result.sum().loc[:, ["Номер карты", "Сумма платежа", "Кэшбэк"]]
+    total_sum_cashback = (
+                          result.sum().loc)[:, ["Номер карты",
+                                                "Сумма платежа",
+                                                "Кэшбэк"]]
 
     return total_sum_cashback.to_dict(orient="records")
 
 
 def five_transactions(operations: pd.DataFrame) -> list[dict]:
-    top_five = operations.sort_values(by="Сумма платежа", ascending=False).head()
-    result_top_five = top_five.loc[:, ["Дата платежа", "Сумма платежа", "Категория", "Описание"]]
+    top_five = operations.sort_values(by="Сумма платежа",
+                                      ascending=False).head()
+    result_top_five = top_five.loc[:, ["Дата платежа",
+                                       "Сумма платежа",
+                                       "Категория",
+                                       "Описание"]]
 
     return result_top_five.to_dict(orient="records")
-
